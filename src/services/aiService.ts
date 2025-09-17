@@ -1,7 +1,7 @@
-import type { IncomeCategory, SavingsCategory, BillsCategory, ExpenseCategory } from "../config/categories";
+import type { IncomeCategory, SavingsCategory, InvestingCategory, BillsCategory, ExpenseCategory } from "../config/categories";
 
-export type TransactionType = 'income' | 'savings' | 'bills' | 'expense';
-export type TransactionData = IncomeData | SavingsData | BillsData | ExpenseData;
+export type TransactionType = 'income' | 'savings' | 'investing' | 'bills' | 'expense';
+export type TransactionData = IncomeData | SavingsData | InvestingData | BillsData | ExpenseData;
 
 export interface AIProvider {
     categorizeTransaction(rawText:string, knownType?: TransactionType): Promise<{
@@ -23,6 +23,13 @@ export interface SavingsData {
     description: string;
     amount: number;
     category: SavingsCategory;
+    confidence: number;
+}
+
+export interface InvestingData {
+    description: string;
+    amount: number;
+    category: InvestingCategory;
     confidence: number;
 }
 
