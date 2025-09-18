@@ -1,9 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
-import dotenv from 'dotenv';
+import dotenv, { config } from 'dotenv';
 dotenv.config();
 
 import type { IncomeCategory, SavingsCategory, InvestingCategory, BillsCategory, ExpenseCategory } from "../../config/categories";
-import type { IncomeData, SavingsData, InvestingData, BillsData, ExpenseData, TransactionType, TransactionData, AIProvider } from "../aiService.ts"
+import { INCOME_CATEGORIES, SAVINGS_CATEGORIES, INVESTING_CATERGORIES, BILLS_CATEGORIES, EXPENSE_CATEGORIES } from "../../config/categories";
+import type { IncomeData, SavingsData, InvestingData, BillsData, ExpenseData, TransactionType, TransactionData, AIProvider } from "../aiService";
 
 const apiKey = process.env.GEMINI_API_KEY
 console.log('API Key:', process.env.GEMINI_API_KEY ? 'Found' : 'Not found');
@@ -62,21 +63,21 @@ async function categorizeTransaction(rawText:string): Promise<{
 // prompt for LLM, return a string
 function buildPrompt(rawText: string): string {
   const categories = {
-      income: ['Work', 'Other'],
-      savings: ['Wealthfront'],
-      investing: ['Fidelity'],
-      bills: ['Parents', 'Wifi', 'Gym', 'Subscription'],
-      expense: ['Eating Out', 'Shopping', 'Activity', 'Grocery', 'Gas', 'School', 'Other']
+      INCOME_CATEGORIES,
+      SAVINGS_CATEGORIES,
+      INVESTING_CATERGORIES,
+      BILLS_CATEGORIES,
+      EXPENSE_CATEGORIES,
     };
     // join the array for AI readability
     return `You are a finanical transaction categorizer. Analyze this transaction text: "${rawText}"
     
     Determine both the transaction type and category from these options:
-    - Income: ${categories.income.join(', ')} 
-    - Savings: ${categories.savings.join(', ')}
-    - Investing: ${categories.investing.join(', ')}
-    - Bills: ${categories.bills.join(', ')}
-    - Expense: ${categories.expense.join(', ')}
+    - Income: ${INCOME_CATEGORIES.join(', ')} 
+    - Savings: ${SAVINGS_CATEGORIES.join(', ')}
+    - Investing: ${INVESTING_CATERGORIES.join(', ')}
+    - Bills: ${BILLS_CATEGORIES.join(', ')}
+    - Expense: ${EXPENSE_CATEGORIES.join(', ')}
     
     Extract the amount and create a description with the following valid JSON format only:
 
@@ -123,7 +124,7 @@ function validateResponse(result: any): {
 
 async function main() {
   try {
-    const result = await categorizeTransaction("raising canes, 24,69");
+    const result = await categorizeTransaction("perfume, 100");
     console.log('Result:', result);
   } catch (error) {
     console.error('Error:', error);

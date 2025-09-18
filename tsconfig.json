@@ -7,11 +7,13 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "esnext", // changed from 'nodenext' for ts
-    "moduleResolution": "bundler",
+    "module": "commonjs", // changed from 'nodenext' for ts
+    "moduleResolution": "node",
     "target": "esnext",
     "types": ["node"],
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -37,7 +39,7 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    //"verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
