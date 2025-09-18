@@ -27,9 +27,3 @@ export const EXPENSE_CATEGORIES = [
     'School',
     'Other',
 ] as const;
-
-export type IncomeCategory = typeof INCOME_CATEGORIES[number]; // create union of types
-export type SavingsCategory = typeof SAVINGS_CATEGORIES[number];
-export type InvestingCategory = typeof INVESTING_CATERGORIES[number];
-export type BillsCategory = typeof BILLS_CATEGORIES[number];
-export type ExpenseCategory = typeof EXPENSE_CATEGORIES[number];

@@ -2,9 +2,8 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv, { config } from 'dotenv';
 dotenv.config();
 
-import type { IncomeCategory, SavingsCategory, InvestingCategory, BillsCategory, ExpenseCategory } from "../../config/categories";
 import { INCOME_CATEGORIES, SAVINGS_CATEGORIES, INVESTING_CATERGORIES, BILLS_CATEGORIES, EXPENSE_CATEGORIES } from "../../config/categories";
-import type { IncomeData, SavingsData, InvestingData, BillsData, ExpenseData, TransactionType, TransactionData, AIProvider } from "../aiService";
+import type { TransactionType, TransactionData, AIProvider } from "../aiService";
 
 const apiKey = process.env.GEMINI_API_KEY
 console.log('API Key:', process.env.GEMINI_API_KEY ? 'Found' : 'Not found');
@@ -62,13 +61,6 @@ async function categorizeTransaction(rawText:string): Promise<{
 
 // prompt for LLM, return a string
 function buildPrompt(rawText: string): string {
-  const categories = {
-      INCOME_CATEGORIES,
-      SAVINGS_CATEGORIES,
-      INVESTING_CATERGORIES,
-      BILLS_CATEGORIES,
-      EXPENSE_CATEGORIES,
-    };
     // join the array for AI readability
     return `You are a finanical transaction categorizer. Analyze this transaction text: "${rawText}"
     
